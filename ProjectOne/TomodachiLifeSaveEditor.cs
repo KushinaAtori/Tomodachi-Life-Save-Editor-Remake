@@ -1,9 +1,5 @@
-using System;
-using System.IO;
 using System.Net;
-using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace ProjectOne
 {
@@ -14,6 +10,9 @@ namespace ProjectOne
         private string username;
         private string password;
         private string currentDirectory = "/";
+        private string savedataArcPath = Path.Combine(Environment.CurrentDirectory, "savedataArc.txt");
+        private long expectedFileLength = 0;
+        private string region = "";
         private Stack<string> directoryHistory = new Stack<string>();
 
 
@@ -180,9 +179,8 @@ namespace ProjectOne
             {
                 FileInfo fileInfo = new FileInfo(filePath);
                 long fileLength = fileInfo.Length;
-                long expectedLength = 0x1F0048;
 
-                if (fileLength == expectedLength)
+                if (fileLength == 0x1F0048)
                 {
                     Console.WriteLine("File length matches the expected length.");
                 }
@@ -199,16 +197,34 @@ namespace ProjectOne
 
         private void timePenaltyButton_Click(object sender, EventArgs e)
         {
-            string savedataArcPath = Path.Combine(Environment.CurrentDirectory, "savedataArc.txt"); // Replace "savedataArcFileName" with your actual file name
-
             try
             {
-                byte[] newBytes = { 0x40, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03, 0x03, 0x02, 0x00 };
+                byte[] newBytes;
 
-                // Open the file in read-write mode with FileStream
+                if (string.IsNullOrEmpty(region))
+                {
+                    MessageBox.Show("Region information is missing. Click 'Load Save' first.");
+                    return;
+                }
+
                 using (FileStream fs = new FileStream(savedataArcPath, FileMode.Open, FileAccess.Write))
                 {
-                    fs.Position = 0x14BD40;
+                    if (region == "JP")
+                    {
+                        newBytes = new byte[] { 0x40, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03, 0x03, 0x02, 0x00 };
+                        fs.Position = 0x14BD40;
+                    }
+                    else if (region == "USA")
+                    {
+                        newBytes = new byte[] { 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03, 0x03, 0x02, 0x00 };
+                        fs.Position = 0x1E4C70;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unknown region. Cannot modify the file.");
+                        return;
+                    }
+
                     fs.Write(newBytes, 0, newBytes.Length);
                 }
 
@@ -220,5 +236,40 @@ namespace ProjectOne
             }
         }
 
+        private void getSaveFileLengthButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(savedataArcPath))
+                {
+                    FileInfo fileInfo = new FileInfo(savedataArcPath);
+                    expectedFileLength = fileInfo.Length;
+
+                    if (expectedFileLength == 1359208)
+                    {
+                        region = "JP";
+                    }
+                    else if (expectedFileLength == 1985688)
+                    {
+                        region = "USA";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unknown region. Cannot modify the file.");
+                        return;
+                    }
+
+                    MessageBox.Show($"File length set to {expectedFileLength} bytes for {region} region.");
+                }
+                else
+                {
+                    MessageBox.Show("The file does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
     }
 }

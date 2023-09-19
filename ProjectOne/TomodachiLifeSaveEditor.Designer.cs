@@ -36,6 +36,7 @@
             backButton = new Button();
             localDirectory = new ListView();
             timePenaltyButton = new Button();
+            getSaveFileLengthButton = new Button();
             SuspendLayout();
             // 
             // ConnectMain
@@ -80,10 +81,18 @@
             timePenaltyButton.UseVisualStyleBackColor = true;
             timePenaltyButton.Click += timePenaltyButton_Click;
             // 
+            // getSaveFileLengthButton
+            // 
+            resources.ApplyResources(getSaveFileLengthButton, "getSaveFileLengthButton");
+            getSaveFileLengthButton.Name = "getSaveFileLengthButton";
+            getSaveFileLengthButton.UseVisualStyleBackColor = true;
+            getSaveFileLengthButton.Click += getSaveFileLengthButton_Click;
+            // 
             // TomodachiLife
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(getSaveFileLengthButton);
             Controls.Add(timePenaltyButton);
             Controls.Add(localDirectory);
             Controls.Add(backButton);
@@ -107,5 +116,6 @@
         private Button backButton;
         private ListView localDirectory;
         private Button timePenaltyButton;
+        private Button getSaveFileLengthButton;
     }
 }
