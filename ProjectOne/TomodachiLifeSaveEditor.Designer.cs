@@ -31,10 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TomodachiLife));
             ConnectMain = new Button();
             nintendoDirectory = new ListView();
-            nintendoRetrieve = new Button();
             loadSaveFile = new Button();
             folderBrowserDialog1 = new FolderBrowserDialog();
             backButton = new Button();
+            localDirectory = new ListView();
+            timePenaltyButton = new Button();
             SuspendLayout();
             // 
             // ConnectMain
@@ -49,11 +50,6 @@
             resources.ApplyResources(nintendoDirectory, "nintendoDirectory");
             nintendoDirectory.Name = "nintendoDirectory";
             nintendoDirectory.UseCompatibleStateImageBehavior = false;
-            // 
-            // nintendoRetrieve
-            // 
-            resources.ApplyResources(nintendoRetrieve, "nintendoRetrieve");
-            nintendoRetrieve.Name = "nintendoRetrieve";
             // 
             // loadSaveFile
             // 
@@ -71,15 +67,31 @@
             backButton.Name = "backButton";
             backButton.Click += backButton_Click;
             // 
+            // localDirectory
+            // 
+            resources.ApplyResources(localDirectory, "localDirectory");
+            localDirectory.Name = "localDirectory";
+            localDirectory.UseCompatibleStateImageBehavior = false;
+            // 
+            // timePenaltyButton
+            // 
+            resources.ApplyResources(timePenaltyButton, "timePenaltyButton");
+            timePenaltyButton.Name = "timePenaltyButton";
+            timePenaltyButton.UseVisualStyleBackColor = true;
+            timePenaltyButton.Click += timePenaltyButton_Click;
+            // 
             // TomodachiLife
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(timePenaltyButton);
+            Controls.Add(localDirectory);
             Controls.Add(backButton);
             Controls.Add(loadSaveFile);
-            Controls.Add(nintendoRetrieve);
             Controls.Add(nintendoDirectory);
             Controls.Add(ConnectMain);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "TomodachiLife";
             Load += TomodachiLife_Load;
             ResumeLayout(false);
@@ -90,9 +102,10 @@
 
         private Button ConnectMain;
         private ListView nintendoDirectory;
-        private Button nintendoRetrieve;
         private Button loadSaveFile;
         private FolderBrowserDialog folderBrowserDialog1;
         private Button backButton;
+        private ListView localDirectory;
+        private Button timePenaltyButton;
     }
 }

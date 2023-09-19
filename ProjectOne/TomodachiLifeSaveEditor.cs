@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -140,27 +141,32 @@ namespace ProjectOne
             {
                 string selectedFileName = nintendoDirectory.SelectedItems[0].Text;
                 string fullFilePath = currentDirectory.TrimEnd('/') + "/" + selectedFileName;
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.FileName = selectedFileName;
-                DialogResult result = saveFileDialog.ShowDialog();
 
-                if (result == DialogResult.OK)
+                string currentAppDirectory = Environment.CurrentDirectory;
+
+                string backupFolderName = "Backup";
+                string backupFolderPath = Path.Combine(currentAppDirectory, backupFolderName);
+
+                if (!Directory.Exists(backupFolderPath))
                 {
-                    string localFilePath = saveFileDialog.FileName;
+                    Directory.CreateDirectory(backupFolderPath);
+                }
 
-                    try
+                string localFilePath = Path.Combine(currentAppDirectory, selectedFileName);
+
+                try
+                {
+                    using (WebClient client = new WebClient())
                     {
-                        using (WebClient client = new WebClient())
-                        {
-                            client.Credentials = new NetworkCredential(username, password);
-                            client.DownloadFile($"ftp://{server}/{fullFilePath}", localFilePath);
-                            MessageBox.Show("File downloaded successfully.");
-                        }
+                        client.Credentials = new NetworkCredential(username, password);
+                        client.DownloadFile($"ftp://{server}/{fullFilePath}", localFilePath);
+                        string backupFilePath = Path.Combine(backupFolderPath, selectedFileName);
+                        File.Copy(localFilePath, backupFilePath, true);
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error downloading file: {ex.Message}");
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error downloading file: {ex.Message}");
                 }
             }
             else
@@ -168,5 +174,51 @@ namespace ProjectOne
                 MessageBox.Show("Please select a file to download.");
             }
         }
+        private static void CreateFileStream(string filePath)
+        {
+            try
+            {
+                FileInfo fileInfo = new FileInfo(filePath);
+                long fileLength = fileInfo.Length;
+                long expectedLength = 0x1F0048;
+
+                if (fileLength == expectedLength)
+                {
+                    Console.WriteLine("File length matches the expected length.");
+                }
+                else
+                {
+                    Console.WriteLine("File length does not match the expected length.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        private void timePenaltyButton_Click(object sender, EventArgs e)
+        {
+            string savedataArcPath = Path.Combine(Environment.CurrentDirectory, "savedataArc.txt"); // Replace "savedataArcFileName" with your actual file name
+
+            try
+            {
+                byte[] newBytes = { 0x40, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03, 0x03, 0x02, 0x00 };
+
+                // Open the file in read-write mode with FileStream
+                using (FileStream fs = new FileStream(savedataArcPath, FileMode.Open, FileAccess.Write))
+                {
+                    fs.Position = 0x14BD40;
+                    fs.Write(newBytes, 0, newBytes.Length);
+                }
+
+                MessageBox.Show("Time penalty removed.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
     }
 }
