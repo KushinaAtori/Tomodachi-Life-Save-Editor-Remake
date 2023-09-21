@@ -176,10 +176,17 @@
   <data name="rootDisplayButton.Text" xml:space="preserve">
     <value>Root /</value>
   </data>
-  <data name="loadConnectionButton_Click.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="loadConnectionButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 337</value>
+  </data>
+  <data name="loadConnectionButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 23</value>
   </data>
-  <data name="loadConnectionButton_Click.Text" xml:space="preserve">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="loadConnectionButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="loadConnectionButton.Text" xml:space="preserve">
     <value>Load Connection</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

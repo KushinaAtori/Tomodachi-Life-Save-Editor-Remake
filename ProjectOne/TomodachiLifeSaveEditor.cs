@@ -55,23 +55,23 @@ namespace ProjectOne
         }
 
         private async void ConnectMain_Click(object sender, EventArgs e)
-        { 
-                await Task.Run(() =>
+        {
+            await Task.Run(() =>
+            {
+                if (ShowLoginDialog(out server, out port, out username, out password))
                 {
-                    if (ShowLoginDialog(out server, out port, out username, out password))
+                    serverDetailsProvided = true;
+                    this.Invoke((MethodInvoker)async delegate
                     {
-                        serverDetailsProvided = true;
-                        this.Invoke((MethodInvoker)async delegate
-                        {
-                            await UpdateDirectoryListAsync();
-                            connectMainButton.Enabled = true;
-                        });
-                    }
-                    else
-                    {
+                        await UpdateDirectoryListAsync();
                         connectMainButton.Enabled = true;
-                    }
-                });
+                    });
+                }
+                else
+                {
+                    connectMainButton.Enabled = true;
+                }
+            });
         }
 
         private bool ShowLoginDialog(out string server, out int port, out string username, out string password)

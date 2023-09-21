@@ -11,7 +11,7 @@ namespace LoginNameSpace
         public string Username => usernameText.Text;
         public string Password => passwordText.Text;
 
-        public  Login()
+        public Login()
         {
             InitializeComponent();
         }

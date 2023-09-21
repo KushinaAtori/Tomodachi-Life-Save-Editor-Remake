@@ -86,10 +86,10 @@
             resources.ApplyResources(rootDisplayButton, "rootDisplayButton");
             rootDisplayButton.Name = "rootDisplayButton";
             // 
-            // loadConnectionButton_Click
+            // loadConnectionButton
             // 
-            resources.ApplyResources(loadConnectionButton, "loadConnectionButton_Click");
-            loadConnectionButton.Name = "loadConnectionButton_Click";
+            resources.ApplyResources(loadConnectionButton, "loadConnectionButton");
+            loadConnectionButton.Name = "loadConnectionButton";
             loadConnectionButton.UseVisualStyleBackColor = true;
             // 
             // TomodachiLife
