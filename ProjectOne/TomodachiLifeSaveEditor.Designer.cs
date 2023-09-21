@@ -29,76 +29,83 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TomodachiLife));
-            ConnectMain = new Button();
-            nintendoDirectory = new ListView();
-            loadSaveFile = new Button();
-            folderBrowserDialog1 = new FolderBrowserDialog();
+            connectMainButton = new Button();
+            nintendoDirectoryView = new ListView();
+            downloadSaveFileButton = new Button();
             backButton = new Button();
-            localDirectory = new ListView();
             timePenaltyButton = new Button();
-            getSaveFileLengthButton = new Button();
+            loadSaveButton = new Button();
+            saveConnectionButton = new Button();
+            rootDisplayButton = new Button();
+            loadConnectionButton = new Button();
             SuspendLayout();
             // 
-            // ConnectMain
+            // connectMainButton
             // 
-            resources.ApplyResources(ConnectMain, "ConnectMain");
-            ConnectMain.Name = "ConnectMain";
-            ConnectMain.UseVisualStyleBackColor = true;
-            ConnectMain.Click += ConnectMain_Click;
+            resources.ApplyResources(connectMainButton, "connectMainButton");
+            connectMainButton.Name = "connectMainButton";
+            connectMainButton.UseVisualStyleBackColor = true;
             // 
-            // nintendoDirectory
+            // nintendoDirectoryView
             // 
-            resources.ApplyResources(nintendoDirectory, "nintendoDirectory");
-            nintendoDirectory.Name = "nintendoDirectory";
-            nintendoDirectory.UseCompatibleStateImageBehavior = false;
+            resources.ApplyResources(nintendoDirectoryView, "nintendoDirectoryView");
+            nintendoDirectoryView.Name = "nintendoDirectoryView";
+            nintendoDirectoryView.Sorting = SortOrder.Ascending;
+            nintendoDirectoryView.UseCompatibleStateImageBehavior = false;
             // 
-            // loadSaveFile
+            // downloadSaveFileButton
             // 
-            resources.ApplyResources(loadSaveFile, "loadSaveFile");
-            loadSaveFile.Name = "loadSaveFile";
-            loadSaveFile.Click += loadSaveFile_Click;
-            // 
-            // folderBrowserDialog1
-            // 
-            resources.ApplyResources(folderBrowserDialog1, "folderBrowserDialog1");
+            resources.ApplyResources(downloadSaveFileButton, "downloadSaveFileButton");
+            downloadSaveFileButton.Name = "downloadSaveFileButton";
             // 
             // backButton
             // 
             resources.ApplyResources(backButton, "backButton");
             backButton.Name = "backButton";
-            backButton.Click += backButton_Click;
-            // 
-            // localDirectory
-            // 
-            resources.ApplyResources(localDirectory, "localDirectory");
-            localDirectory.Name = "localDirectory";
-            localDirectory.UseCompatibleStateImageBehavior = false;
             // 
             // timePenaltyButton
             // 
             resources.ApplyResources(timePenaltyButton, "timePenaltyButton");
             timePenaltyButton.Name = "timePenaltyButton";
             timePenaltyButton.UseVisualStyleBackColor = true;
-            timePenaltyButton.Click += timePenaltyButton_Click;
             // 
-            // getSaveFileLengthButton
+            // loadSaveButton
             // 
-            resources.ApplyResources(getSaveFileLengthButton, "getSaveFileLengthButton");
-            getSaveFileLengthButton.Name = "getSaveFileLengthButton";
-            getSaveFileLengthButton.UseVisualStyleBackColor = true;
-            getSaveFileLengthButton.Click += getSaveFileLengthButton_Click;
+            resources.ApplyResources(loadSaveButton, "loadSaveButton");
+            loadSaveButton.Name = "loadSaveButton";
+            loadSaveButton.UseVisualStyleBackColor = true;
+            // 
+            // saveConnectionButton
+            // 
+            resources.ApplyResources(saveConnectionButton, "saveConnectionButton");
+            saveConnectionButton.Name = "saveConnectionButton";
+            saveConnectionButton.UseVisualStyleBackColor = true;
+            // 
+            // rootDisplayButton
+            // 
+            resources.ApplyResources(rootDisplayButton, "rootDisplayButton");
+            rootDisplayButton.Name = "rootDisplayButton";
+            // 
+            // loadConnectionButton_Click
+            // 
+            resources.ApplyResources(loadConnectionButton, "loadConnectionButton_Click");
+            loadConnectionButton.Name = "loadConnectionButton_Click";
+            loadConnectionButton.UseVisualStyleBackColor = true;
             // 
             // TomodachiLife
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(getSaveFileLengthButton);
+            Controls.Add(loadConnectionButton);
+            Controls.Add(rootDisplayButton);
+            Controls.Add(saveConnectionButton);
+            Controls.Add(loadSaveButton);
             Controls.Add(timePenaltyButton);
-            Controls.Add(localDirectory);
             Controls.Add(backButton);
-            Controls.Add(loadSaveFile);
-            Controls.Add(nintendoDirectory);
-            Controls.Add(ConnectMain);
+            Controls.Add(downloadSaveFileButton);
+            Controls.Add(nintendoDirectoryView);
+            Controls.Add(connectMainButton);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "TomodachiLife";
@@ -109,13 +116,14 @@
 
         #endregion
 
-        private Button ConnectMain;
-        private ListView nintendoDirectory;
-        private Button loadSaveFile;
-        private FolderBrowserDialog folderBrowserDialog1;
+        private Button connectMainButton;
+        private ListView nintendoDirectoryView;
+        private Button downloadSaveFileButton;
         private Button backButton;
-        private ListView localDirectory;
         private Button timePenaltyButton;
-        private Button getSaveFileLengthButton;
+        private Button loadSaveButton;
+        private Button saveConnectionButton;
+        private Button rootDisplayButton;
+        private Button loadConnectionButton;
     }
 }
