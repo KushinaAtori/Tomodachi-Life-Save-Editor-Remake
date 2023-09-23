@@ -1,5 +1,6 @@
 using LoginNameSpace;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -393,6 +394,42 @@ namespace ProjectOne
             }
         }
 
+        private void applyMoneyButton_Click(object sender, EventArgs e)
+        {
+
+            if (int.TryParse(moneyInput.Text, out int moneyValue))
+            {
+
+                byte[] newBytes = new byte[16];
+
+                byte[] moneyBytes = BitConverter.GetBytes(moneyValue);
+
+
+                if (!BitConverter.IsLittleEndian)
+                {
+                    Array.Reverse(moneyBytes);
+                }
+
+
+
+                using (FileStream fs = new FileStream(savedataArcPath, FileMode.Open, FileAccess.Write))
+                {
+                    if (region == "JP")
+                    {
+                        int moneyOffset = 8;
+                        Array.Copy(moneyBytes, 0, newBytes, moneyOffset, moneyBytes.Length);
+                        fs.Position = 0x14BCA0;
+
+
+                        fs.Write(newBytes, 0, newBytes.Length);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid input for money.");
+            }
+        }
 
     }
 }

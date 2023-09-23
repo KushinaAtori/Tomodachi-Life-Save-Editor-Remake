@@ -38,6 +38,8 @@
             saveConnectionButton = new Button();
             rootDisplayButton = new Button();
             loadConnectionButton = new Button();
+            moneyInput = new TextBox();
+            applyMoneyButton = new Button();
             SuspendLayout();
             // 
             // connectMainButton
@@ -92,10 +94,25 @@
             loadConnectionButton.Name = "loadConnectionButton";
             loadConnectionButton.UseVisualStyleBackColor = true;
             // 
+            // moneyInput
+            // 
+            resources.ApplyResources(moneyInput, "moneyInput");
+            moneyInput.Name = "moneyInput";
+            // 
+            // applyMoneyButton
+            // 
+            resources.ApplyResources(applyMoneyButton, "applyMoneyButton");
+            applyMoneyButton.ForeColor = Color.ForestGreen;
+            applyMoneyButton.Name = "applyMoneyButton";
+            applyMoneyButton.UseVisualStyleBackColor = true;
+            applyMoneyButton.Click += applyMoneyButton_Click;
+            // 
             // TomodachiLife
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(applyMoneyButton);
+            Controls.Add(moneyInput);
             Controls.Add(loadConnectionButton);
             Controls.Add(rootDisplayButton);
             Controls.Add(saveConnectionButton);
@@ -111,6 +128,7 @@
             Name = "TomodachiLife";
             Load += TomodachiLife_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
 
@@ -125,5 +143,7 @@
         private Button saveConnectionButton;
         private Button rootDisplayButton;
         private Button loadConnectionButton;
+        private TextBox moneyInput;
+        private Button applyMoneyButton;
     }
 }
